@@ -1,0 +1,9 @@
+.location__map {
+  height: 60vh; /* Adjust the height as needed */
+  width: 100%;
+  margin-top: 20px;
+}
+
+.right {
+  text-align: right;
+}
