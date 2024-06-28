@@ -4,7 +4,7 @@ import { QR_KEY } from '@/constants'
 import { IRQOrderTikets, ITicket } from '@/interfaces'
 import { tiketApi } from '@/services'
 import { formatMoney } from '@/utils'
-import { Box, Button, Checkbox, Container, Dialog, Grid } from '@mui/material'
+import { Box, Button, Checkbox, Container, Dialog, Grid, useMediaQuery } from '@mui/material'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react'
@@ -37,13 +37,16 @@ export function Buy() {
   }, [tikets])
 
   const handleTicketChange = (ticketId: number, quantity: number) => {
-    setSelectedTickets((prevSelectedTickets) => {
-      const filteredTickets = prevSelectedTickets.filter((ticket) => ticket.id !== ticketId)
-      if (quantity > 0) {
-        return [...filteredTickets, { id: ticketId, quantity }]
-      }
-      return filteredTickets
-    })
+    if (quantity > 0) {
+      
+      setSelectedTickets((prevSelectedTickets) => {
+        const filteredTickets = prevSelectedTickets.filter((ticket) => ticket.id !== ticketId)
+        if (quantity > 0) {
+          return [...filteredTickets, { id: ticketId, quantity }]
+        }
+        return filteredTickets
+      })
+    }
   }
 
   return (
@@ -65,12 +68,12 @@ export function Buy() {
         }}
       >
         <Container maxWidth='lg'>
-          <Title title='Select Tickets' position='center' description='Choose your tickets and enter the quantity.' />
+          <Title title='Tickets' position='center' description='Choose your tickets and enter the quantity.' />
           <div className={style.tiket}>
             <div className={style.tiket__list}>
               {tikets.map((ticket: ITicket) => (
                 <div className={style.tiket__item} key={ticket.id}>
-                  <div>
+                  <div className={style.tiket__item__text}>
                     <p className={style.tiket__item__tilte}>{ticket.title}</p>
                     <p className={style.tiket__item__price}>{formatMoney(ticket.price)} VND</p>
                   </div>
@@ -120,8 +123,9 @@ interface FormData {
   email: string
   tickets: { id: number; quantity: number }[]
   payment_method_id: number
-  description: string,
-  recaptcha: string,
+  description: string
+  recaptcha: string
+  coupon_code: string
 }
 
 const defaultValues: FormData = {
@@ -131,7 +135,8 @@ const defaultValues: FormData = {
   tickets: [],
   payment_method_id: 1,
   description: '',
-  recaptcha: ''
+  recaptcha: '',
+  coupon_code: ''
 }
 
 interface IOrderFormProps {
@@ -150,7 +155,7 @@ export function OrderForm(props: IOrderFormProps) {
     reset,
     formState: { errors }
   } = useForm<FormData>({ defaultValues: { ...defaultValues} })
-
+  const IS_MB = useMediaQuery('(max-width:767px)')
   const onSubmit = async (data: FormData) => {
     if (captcha === '') {
       setRefreshReCaptcha((r) => !r)
@@ -161,6 +166,7 @@ export function OrderForm(props: IOrderFormProps) {
         recaptcha: captcha
       }
       mutate(newData)
+      // console.log(newData)
     }
   }
 
@@ -184,11 +190,16 @@ export function OrderForm(props: IOrderFormProps) {
       <Container>
         <div className={style.tiket__dialog__header}>
           <p className={style.tiket__dialog__title}>Infomation</p>
-          <CgClose className={style.close__dialog} onClick={() => setOpen(false)} size={28} color='var(--secondary-cl)' />
+          <CgClose
+            className={style.close__dialog}
+            onClick={() => setOpen(false)}
+            size={28}
+            color='var(--secondary-cl)'
+          />
         </div>
         <Box component='form' onSubmit={handleSubmit(onSubmit)} noValidate>
           <Grid container spacing={2}>
-            <Grid item xs={12}>
+            <Grid item xs={IS_MB ? 12 : 6}>
               <Controller
                 name='fullname'
                 control={control}
@@ -206,7 +217,7 @@ export function OrderForm(props: IOrderFormProps) {
                 )}
               />
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={IS_MB ? 12 : 6}>
               <Controller
                 name='phone'
                 control={control}
@@ -260,20 +271,29 @@ export function OrderForm(props: IOrderFormProps) {
             </Grid>
             <Grid item xs={12}>
               <Controller
+                name='coupon_code'
+                control={control}
+                render={({ field }) => (
+                  <TextFieldCustom color='secondary' {...field} label='Voucher (if any)' fullWidth />
+                )}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <Controller
                 name='description'
                 control={control}
-                rules={{ required: 'Description is required' }}
+                // rules={{ required: 'Description is required' }}
                 render={({ field }) => (
                   <TextFieldCustom
                     color='secondary'
                     {...field}
                     label='Description'
                     fullWidth
-                    required
+                    // required
                     multiline
                     rows={4}
-                    error={!!errors.description}
-                    helperText={errors.description ? errors.description.message : ''}
+                    // error={!!errors.description}
+                    // helperText={errors.description ? errors.description.message : ''}
                   />
                 )}
               />

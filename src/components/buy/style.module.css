@@ -13,6 +13,7 @@
 .tiket__item{
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 24px;
   border: 2px solid var(--secondary-cl);
   padding: 24px;
@@ -21,10 +22,14 @@
   background-color: var(--white-cl);
   color: black;
 }
-.active{
+.tiket__item__text{
+  text-align: left;
+  width: 100%;
+}
+/* .active{
   background-color: var(--secondary-cl);
   color: #000;
-}
+} */
 .tiket__dialog__title{
   color: var(--black-cl);
   font-weight: bold;
@@ -49,3 +54,6 @@
   font-weight: bold;
   color: var(--black-cl);
 }
+/* .recaptcha__element{
+  visibility: visible;
+} */
