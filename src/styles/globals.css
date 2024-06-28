@@ -114,49 +114,65 @@ section {
   /* background-attachment: fixed; */
   /* background-position: center; */
 }
-section.left:before {
-    content: '';
-    position: absolute;
-    z-index: 2;
-    top: 100%;
-    left: 0;
-    width: 50%;
-    border-bottom: 1px dashed var(--secondary-l-color);
-}
-section.right:before {
-    content: '';
-    position: absolute;
-    z-index: 1;
-    top: 100%;
-    right: 0;
-    width: 50%;
-    border-bottom: 1px dashed var(--secondary-l-color);
-}
-section.center:before {
-    content: '';
-    position: absolute;
-    z-index: 1;
-    top: 100%;
-    right: 0;
-    left: 0;
-    width: 100%;
-    border-bottom: 1px dashed var(--secondary-l-color);
-}
-
-section:not(:nth-child(7)):after {
+section:after{
     content: '';
     position: absolute;
     z-index: 2;
     bottom: -50px;
     left: 50%;
-    left: calc(50% - 2.5px);
     width: 5px;
     height: 100px;
     background-color: var(--secondary-cl);
 }
 
+section:before{
+  content: '';
+  position: absolute;
+  z-index: 1;
+  top: 100%;
+  border-bottom: 1px dashed var(--secondary-l-color);
+}
+section.left:before {
+  left: 0;
+  width: 50%;
+}
+section.right:before {
+  right: 0;
+  width: 50%;
+}
+section.center:before {
+  right: 0;
+  left: 0;
+  width: 100%;
+}
+section.none:after {
+  background-color: transparent;
+}
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 @media screen and (max-width: 767.98px) {
   p {
     font-size: 14px;
+  }
+  h2{
+    font-size: 30px;
+    margin-bottom: 14px;
+    line-height: 1;
+  }
+  section:after{
+    height: 50px;
+    bottom: -25px;
+  }
+  section{
+    padding: 60px 0;
   }
 }

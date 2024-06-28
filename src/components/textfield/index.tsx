@@ -5,17 +5,14 @@ export function TextFieldCustom({ ...props }) {
   return (
     <TextField
       label={label}
-      // variant='outlined'
-      // fullWidth
-      // required
       {...props}
       sx={{
         '& .MuiOutlinedInput-root': {
-          color: '#ff9800',
-          fontFamily: 'Arial',
+          color: 'var(--secondary-cl)',
+          fontFamily: 'Poppins',
           fontWeight: 'bold',
           '& .MuiOutlinedInput-notchedOutline': {
-            borderColor: '#ff9800',
+            borderColor: 'var(--secondary-cl)',
             borderWidth: '2px'
           },
           '&.Mui-focused': {
@@ -26,15 +23,15 @@ export function TextFieldCustom({ ...props }) {
           },
           '&:hover:not(.Mui-focused)': {
             '& .MuiOutlinedInput-notchedOutline': {
-              borderColor: '#ff9800'
+              borderColor: 'var(--secondary-cl)'
             }
           }
         },
         '& .MuiInputLabel-outlined': {
-          color: '#ff9800',
+          color: 'var(--secondary-cl)',
           fontWeight: 'bold',
           '&.Mui-focused': {
-            color: '#ff9800',
+            color: 'var(--secondary-cl)',
             fontWeight: 'bold'
           }
         }

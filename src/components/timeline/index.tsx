@@ -2,6 +2,7 @@ import { Container } from '@mui/material'
 import React, { useState, useEffect } from 'react'
 import style from './style.module.css'
 import classNames from 'classnames'
+import { COUNT_DOWN } from '@/constants/varible'
 
 interface TimeLeft {
   days: number
@@ -11,8 +12,24 @@ interface TimeLeft {
 }
 
 export function Timeline() {
+  const targetDate = new Date(COUNT_DOWN)
+
+  const formatDate = (date: Date): string => {
+    const formattedDate = `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, '0')}-${date.getFullYear().toString().padStart(2, '0')}`
+    return formattedDate
+  }
+
+  const formatTime = (date: Date): string => {
+    const formattedTime = `${date.getHours().toString().padStart(2, '0')}:${date
+      .getMinutes()
+      .toString()
+      .padStart(2, '0')}:${date.getSeconds().toString().padStart(2, '0')}`
+    return formattedTime
+  }
+
   const calculateTimeLeft = (): TimeLeft => {
-    const targetDate = new Date('2024-10-17T23:59:59')
     const now = new Date()
     const difference = targetDate.getTime() - now.getTime()
 
@@ -46,25 +63,25 @@ export function Timeline() {
   }, [timeLeft])
 
   return (
-    <section className={classNames('center', style.timeline)}>
+    <section className={classNames('none', style.timeline)}>
       <Container>
         <h2 className={style.timeline__title}>Time Line</h2>
-        <p className={style.timeline__desc}>Starts on 10/17/24 at 11:59:59PM</p>
+        <p className={style.timeline__desc}>{`Starts on ${formatDate(targetDate)} at ${formatTime(targetDate)}`}</p>
         <div className={style.timeline__list}>
           <div className={style.timeline__item}>
-            <p className={classNames(style.timeline__time)}>{timeLeft.days}</p>
+            <p className={classNames(style.timeline__time)}>{timeLeft.days.toString().padStart(2, '0')}</p>
             <p className={classNames(style.timeline__time__text)}>Ngày</p>
           </div>
           <div className={style.timeline__item}>
-            <p className={classNames(style.timeline__time)}>{timeLeft.hours}</p>
+            <p className={classNames(style.timeline__time)}>{timeLeft.hours.toString().padStart(2, '0')}</p>
             <p className={classNames(style.timeline__time__text)}>Giờ</p>
           </div>
           <div className={style.timeline__item}>
-            <p className={classNames(style.timeline__time)}>{timeLeft.minutes}</p>
+            <p className={classNames(style.timeline__time)}>{timeLeft.minutes.toString().padStart(2, '0')}</p>
             <p className={classNames(style.timeline__time__text)}>Phút</p>
           </div>
           <div className={style.timeline__item}>
-            <p className={classNames(style.timeline__time)}>{timeLeft.seconds}</p>
+            <p className={classNames(style.timeline__time)}>{timeLeft.seconds.toString().padStart(2, '0')}</p>
             <p className={classNames(style.timeline__time__text)}>Giây</p>
           </div>
         </div>

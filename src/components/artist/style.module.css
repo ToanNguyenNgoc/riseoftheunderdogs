@@ -65,3 +65,9 @@
   line-height: 1.5;
   color: var(--white--cl);
 }
+
+@media screen and (max-width: 767.98px) {
+  .artist__list{
+    gap: 16px;
+  }
+}
