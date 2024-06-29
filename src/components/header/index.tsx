@@ -42,9 +42,11 @@ export function Header() {
         </Link>
       </div>
       <HeaderNav handleRemoveHambuger={handleRemoveHambuger} />
-      <Button size={IS_MB ? 'small' : 'large'} variant='contained' color='secondary'>
-        Buy Now
-      </Button>
+      <Link href={'#buy'}>
+        <Button size={IS_MB ? 'small' : 'large'} variant='contained' color='secondary'>
+          Buy Now
+        </Button>
+      </Link>
     </div>
   )
 }
