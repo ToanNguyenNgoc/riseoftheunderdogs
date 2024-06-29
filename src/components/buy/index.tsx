@@ -28,13 +28,16 @@ export function Buy() {
     queryFn: () => tiketApi.getTikets(),
     staleTime: 5000
   })
+
   const tikets = data?.context?.data || []
+  const filterTicket = tikets.filter(item => item.status == 1);
+
 
   useEffect(() => {
-    if (tikets.length === 1) {
-      setSelectedTickets([{ id: tikets[0].id, quantity: 1 }])
+    if (filterTicket.length === 1) {
+      setSelectedTickets([{ id: filterTicket[0].id, quantity: 1 }])
     }
-  }, [tikets])
+  }, [filterTicket])
 
   const handleTicketChange = (ticketId: number, quantity: number) => {
     if (quantity > 0) {
@@ -71,7 +74,7 @@ export function Buy() {
           <Title title='Tickets' position='center' description='Choose your tickets and enter the quantity.' />
           <div className={style.tiket}>
             <div className={style.tiket__list}>
-              {tikets.map((ticket: ITicket) => (
+              {filterTicket.map((ticket: ITicket) => (
                 <div className={style.tiket__item} key={ticket.id}>
                   <div className={style.tiket__item__text}>
                     <p className={style.tiket__item__tilte}>{ticket.title}</p>
@@ -90,7 +93,7 @@ export function Buy() {
                   )}
                   <Checkbox
                     color='secondary'
-                    style={tikets.length === 1 ? { display: 'none' } : { marginTop: 'auto' }}
+                    style={filterTicket.length === 1 ? { display: 'none' } : { marginTop: 'auto' }}
                     onChange={(e) => handleTicketChange(ticket.id, e.target.checked ? 1 : 0)}
                   />
                 </div>
