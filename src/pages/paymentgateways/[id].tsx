@@ -1,6 +1,7 @@
 import { GetServerSideProps } from 'next'
 import axios from 'axios'
 import { baseURL } from '@/configs'
+import { clearAllModuleContexts } from 'next/dist/server/lib/render-server'
 
 interface PaymentProps {
   initialStatus: string
@@ -35,7 +36,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   let initialStatus = 'PENDING'
 
   try {
-    const response = await axios.get(`${baseURL}/api/paymentgateways/AadFqC`)
+    const response = await axios.get(`${baseURL}/api/paymentgateways/${id}`)
     if (response.data && response.data.status) {
       initialStatus = response.data.context.status
     }
