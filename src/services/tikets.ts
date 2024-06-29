@@ -1,5 +1,5 @@
 import { baseURL } from '@/configs'
-import { IOrderTikets, IResponseDetail, IResponseList, IRQOrderTikets, ITicket } from '@/interfaces'
+import { IOrderTikets, IPaymentGateway, IResponseDetail, IResponseList, IRQOrderTikets, ITicket } from '@/interfaces'
 import axios from 'axios'
 
 interface IParamsPage {
@@ -17,5 +17,10 @@ export const tiketApi = {
       page: '1'
     }
     return axios.get(`${baseURL}/api/tickets`, { params }).then((res) => res.data as IResponseList<ITicket[]>)
+  },
+  getTransaction: (id: string) => {
+    return axios
+      .get(`${baseURL}/api/paymentgateways/${id}`)
+      .then((res) => res.data as IResponseDetail<IPaymentGateway[]>)
   }
 }
