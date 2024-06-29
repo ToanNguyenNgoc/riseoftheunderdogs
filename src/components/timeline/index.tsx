@@ -63,7 +63,7 @@ export function Timeline() {
   }, [timeLeft])
 
   return (
-    <section className={classNames('none', style.timeline)}>
+    <section id="timeline" className={classNames('none', style.timeline)}>
       <Container>
         <h2 className={style.timeline__title}>Time Line</h2>
         <p className={style.timeline__desc}>{`Starts on ${formatDate(targetDate)} at ${formatTime(targetDate)}`}</p>

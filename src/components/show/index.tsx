@@ -44,7 +44,7 @@ export function Show() {
     }
   ]
   return (
-    <section className='left'>
+    <section id="show" className='left'>
       <Container>
         <Title
           title='Show'

@@ -13,6 +13,8 @@ import { Controller, useForm } from 'react-hook-form'
 import { CgClose } from 'react-icons/cg'
 import { toast } from 'react-toastify'
 import style from './style.module.css'
+import { AiOutlineLoading3Quarters } from 'react-icons/ai'
+import { LoadingButton } from '@mui/lab'
 
 export function Buy() {
   const [selectedTickets, setSelectedTickets] = useState<{ id: number; quantity: number }[]>([])
@@ -53,7 +55,7 @@ export function Buy() {
   }
 
   return (
-    <section className='left'>
+    <section id="buy" className='left'>
       <GoogleReCaptchaProvider
         reCaptchaKey={process.env.NEXT_PUBLIC_KEY_CAPTCHA || ''}
         scriptProps={{
@@ -100,7 +102,7 @@ export function Buy() {
               ))}
             </div>
             <Button size='large' variant='contained' color='secondary' onClick={() => setOpen(true)}>
-              Mua
+              Buy
             </Button>
 
             {tikets && (
@@ -173,7 +175,7 @@ export function OrderForm(props: IOrderFormProps) {
     }
   }
 
-  const { mutate } = useMutation({
+  const { mutate, status } = useMutation({
     mutationFn: (body: IRQOrderTikets) => tiketApi.postOrderTikets(body),
     onSuccess: async (data) => {
       if (data) {
@@ -303,9 +305,17 @@ export function OrderForm(props: IOrderFormProps) {
             </Grid>
           </Grid>
           <Box sx={{ mt: 2, mb: 2 }}>
-            <Button size='large' fullWidth type='submit' variant='contained' color='secondary'>
-              Submit
-            </Button>
+            <LoadingButton
+              loading={status === 'pending'}
+              loadingPosition='end'
+              variant='contained'
+              color='secondary'
+              fullWidth
+              size='large'
+              type='submit'
+            >
+              {status === 'pending' ? 'Loading' : 'Submit'}
+            </LoadingButton>
           </Box>
         </Box>
       </Container>

@@ -50,7 +50,7 @@ export function Artist() {
       }
     ]
   return (
-    <section className='right'>
+    <section id="artist" className='right'>
       <Container>
         <Title
           title='Artist'

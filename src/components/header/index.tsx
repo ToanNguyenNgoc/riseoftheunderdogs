@@ -58,19 +58,19 @@ const HeaderNav = (props: IProps) => {
     <nav className={style.nav}>
       <ul className={style.nav_ul}>
         <li onClick={() => handleRemoveHambuger()} className={style.nav_li}>
-          <Link href={'/'}>Show</Link>
+          <Link href={'#show'}>Show</Link>
         </li>
         <li onClick={() => handleRemoveHambuger()} className={style.nav_li}>
-          <Link href='/'>Artist</Link>
+          <Link href='#artist'>Artist</Link>
         </li>
         <li onClick={() => handleRemoveHambuger()} className={style.nav_li}>
-          <Link href='/'>Buy ticket</Link>
+          <Link href='#buy'>Buy ticket</Link>
         </li>
         <li onClick={() => handleRemoveHambuger()} className={style.nav_li}>
-          <Link href='/'>Location</Link>
+          <Link href='#location'>Location</Link>
         </li>
         <li onClick={() => handleRemoveHambuger()} className={style.nav_li}>
-          <Link href='/'>Timeline</Link>
+          <Link href='#timeline'>Timeline</Link>
         </li>
       </ul>
     </nav>

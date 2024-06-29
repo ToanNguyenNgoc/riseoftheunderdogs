@@ -56,7 +56,7 @@ export function Location() {
   }
 
   return (
-    <section className='right'>
+    <section id="location" className='right'>
       <Container>
         <Title
           title='Location'
