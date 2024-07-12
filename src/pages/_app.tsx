@@ -14,34 +14,33 @@ const theme = createTheme({
       'Arial',
       'sans-serif',
       '"Segoe UI Emoji"',
-      '"Segoe UI Symbol"'
-    ].join(',')
+      '"Segoe UI Symbol"',
+    ].join(','),
   },
   palette: {
     primary: {
       main: '#0f171e',
-      contrastText: '#fff'
+      contrastText: '#fff',
     },
     secondary: {
       main: '#ff9800',
-      contrastText: '#fff'
+      contrastText: '#fff',
     },
     action: {
       disabledBackground: 'var(--primary-cl)',
-      disabled: '#fff'
-    }
-  }
+      disabled: '#fff',
+    },
+  },
 })
 export default function App({ Component, pageProps }: AppProps) {
   return (
     <>
       <ToastContainer autoClose={1500} />
       <QueryClientProvider client={queryClient}>
-        
-      <ThemeProvider theme={theme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
-       </QueryClientProvider>
+        <ThemeProvider theme={theme}>
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </QueryClientProvider>
     </>
   )
 }

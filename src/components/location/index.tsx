@@ -17,7 +17,7 @@ interface MarkerProps {
 const Marker: React.FC<MarkerProps> = ({ text }) => (
   <div style={{ position: 'relative', color: 'red', fontWeight: 'bold' }}>
     <img
-      src='https://maps.google.com/mapfiles/ms/icons/red-dot.png'
+      src="https://maps.google.com/mapfiles/ms/icons/red-dot.png"
       alt={text}
       style={{ position: 'absolute', transform: 'translate(-50%, -50%)' }}
     />
@@ -50,18 +50,18 @@ export function Location() {
   const defaultProps = {
     center: {
       lat: 10.7739888,
-      lng: 106.7010858
+      lng: 106.7010858,
     },
-    zoom: 15
+    zoom: 15,
   }
 
   return (
-    <section id="location" className='right'>
+    <section id="location" className="right">
       <Container>
         <Title
-          title='Location'
-          position='center'
-          description='Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi, minima.'
+          title="Location"
+          position="center"
+          description="Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi, minima."
         />
         <div className={style.location__map}>
           {isClient && (
@@ -70,7 +70,11 @@ export function Location() {
               defaultCenter={defaultProps.center}
               defaultZoom={defaultProps.zoom}
             >
-              <Marker lat={defaultProps.center.lat} lng={defaultProps.center.lng} text='Show in here' />
+              <Marker
+                lat={defaultProps.center.lat}
+                lng={defaultProps.center.lng}
+                text="Show in here"
+              />
             </GoogleMapReact>
           )}
         </div>

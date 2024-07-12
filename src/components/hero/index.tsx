@@ -15,16 +15,23 @@ export function Hero() {
           <div className={style.hero__left}>
             <h1 className={style.hero__txt}>Underdog Show Sell Stickets</h1>
             <p className={style.hero__desc}>
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique, impedit.
+              Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Similique, impedit.
             </p>
             <Link href={'#buy'}>
-              <Button size='large' variant='contained' color='secondary'>
+              <Button size="large" variant="contained" color="secondary">
                 Buy Now
               </Button>
             </Link>
           </div>
           <div className={style.hero__img}>
-            <Image src={imgs.heroImg} sizes='100%' alt='hero_img' height={0} width={0} />
+            <Image
+              src={imgs.heroImg}
+              sizes="100%"
+              alt="hero_img"
+              height={0}
+              width={0}
+            />
           </div>
         </div>
       </Container>

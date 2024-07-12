@@ -30,20 +30,30 @@ export function Header() {
   }, [])
 
   return (
-    <div className={`${style.header} ${style.container_fluid} ${isScrolled ? style.scrolled : ''}`}>
+    <div
+      className={`${style.header} ${style.container_fluid} ${isScrolled ? style.scrolled : ''}`}
+    >
       <div className={style.header_left}>
-        <div onClick={() => handleActiveHambuger()} className={style.hamburger} id={style.hamburger}>
+        <div
+          onClick={() => handleActiveHambuger()}
+          className={style.hamburger}
+          id={style.hamburger}
+        >
           <span className={style.line}></span>
           <span className={style.line}></span>
           <span className={style.line}></span>
         </div>
-        <Link href='/' className={style.header_logo}>
+        <Link href="/" className={style.header_logo}>
           Sell Tickets
         </Link>
       </div>
       <HeaderNav handleRemoveHambuger={handleRemoveHambuger} />
       <Link href={'#buy'}>
-        <Button size={IS_MB ? 'small' : 'large'} variant='contained' color='secondary'>
+        <Button
+          size={IS_MB ? 'small' : 'large'}
+          variant="contained"
+          color="secondary"
+        >
           Buy Now
         </Button>
       </Link>
@@ -63,16 +73,16 @@ const HeaderNav = (props: IProps) => {
           <Link href={'#show'}>Show</Link>
         </li>
         <li onClick={() => handleRemoveHambuger()} className={style.nav_li}>
-          <Link href='#artist'>Artist</Link>
+          <Link href="#artist">Artist</Link>
         </li>
         <li onClick={() => handleRemoveHambuger()} className={style.nav_li}>
-          <Link href='#buy'>Buy ticket</Link>
+          <Link href="#buy">Buy ticket</Link>
         </li>
         <li onClick={() => handleRemoveHambuger()} className={style.nav_li}>
-          <Link href='#location'>Location</Link>
+          <Link href="#location">Location</Link>
         </li>
         <li onClick={() => handleRemoveHambuger()} className={style.nav_li}>
-          <Link href='#timeline'>Timeline</Link>
+          <Link href="#timeline">Timeline</Link>
         </li>
       </ul>
     </nav>

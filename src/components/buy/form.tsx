@@ -1,173 +1,15 @@
 import { TextFieldCustom } from '@/components'
-import { Title } from '@/components/title'
-import { QR_KEY } from '@/constants'
-import { IRQOrderTikets, ITicket } from '@/interfaces'
+import { IRQOrderTikets } from '@/interfaces'
 import { tiketApi } from '@/services'
-import { formatMoney } from '@/utils'
-import {
-  Box,
-  Button,
-  Checkbox,
-  Container,
-  Dialog,
-  Grid,
-  useMediaQuery,
-} from '@mui/material'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { LoadingButton } from '@mui/lab'
+import { Box, Container, Dialog, Grid, useMediaQuery } from '@mui/material'
+import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
-import {
-  Dispatch,
-  SetStateAction,
-  useCallback,
-  useEffect,
-  useState,
-} from 'react'
-import {
-  GoogleReCaptcha,
-  GoogleReCaptchaProvider,
-} from 'react-google-recaptcha-v3'
+import { Dispatch, SetStateAction } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { CgClose } from 'react-icons/cg'
 import { toast } from 'react-toastify'
 import style from './style.module.css'
-import { AiOutlineLoading3Quarters } from 'react-icons/ai'
-import { LoadingButton } from '@mui/lab'
-
-export function Buy() {
-  const [selectedTickets, setSelectedTickets] = useState<
-    { id: number; quantity: number }[]
-  >([])
-  const [refreshReCaptcha, setRefreshReCaptcha] = useState<boolean>(false)
-  const [captcha, setCaptcha] = useState('')
-  const [open, setOpen] = useState<boolean>(false)
-  const verifyRecaptchaCallback = useCallback((token: string) => {
-    setCaptcha(token)
-  }, [])
-
-  const { data } = useQuery({
-    queryKey: [QR_KEY.TIKETS],
-    queryFn: () => tiketApi.getTikets(),
-    staleTime: 5000,
-  })
-
-  const tikets = data?.context?.data || []
-  const filterTicket = tikets.filter((item) => item.status == 1)
-
-  useEffect(() => {
-    if (filterTicket.length === 1) {
-      setSelectedTickets([{ id: filterTicket[0].id, quantity: 1 }])
-    }
-  }, [filterTicket])
-
-  const handleTicketChange = (ticketId: number, quantity: number) => {
-    if (quantity > 0) {
-      setSelectedTickets((prevSelectedTickets) => {
-        const filteredTickets = prevSelectedTickets.filter(
-          (ticket) => ticket.id !== ticketId
-        )
-        if (quantity > 0) {
-          return [...filteredTickets, { id: ticketId, quantity }]
-        }
-        return filteredTickets
-      })
-    }
-  }
-
-  return (
-    <section id="buy" className="left">
-      <GoogleReCaptchaProvider
-        reCaptchaKey={process.env.NEXT_PUBLIC_KEY_CAPTCHA || ''}
-        scriptProps={{
-          async: true,
-          defer: true,
-          appendTo: 'head',
-          nonce: undefined,
-        }}
-        container={{
-          element: 'recaptcha__element',
-          parameters: {
-            badge: 'bottomright',
-            theme: 'dark',
-          },
-        }}
-      >
-        <Container maxWidth="lg">
-          <Title
-            title="Tickets"
-            position="center"
-            description="Choose your tickets and enter the quantity."
-          />
-          <div className={style.tiket}>
-            <div className={style.tiket__list}>
-              {filterTicket.map((ticket: ITicket) => (
-                <div className={style.tiket__item} key={ticket.id}>
-                  <div className={style.tiket__item__text}>
-                    <p className={style.tiket__item__tilte}>{ticket.title}</p>
-                    <p className={style.tiket__item__price}>
-                      {formatMoney(ticket.price)} VND
-                    </p>
-                  </div>
-                  {selectedTickets.find((t) => t.id === ticket.id) && (
-                    <TextFieldCustom
-                      fullWidth
-                      required
-                      type="number"
-                      label="Quantity"
-                      color="secondary"
-                      value={
-                        selectedTickets.find((t) => t.id === ticket.id)
-                          ?.quantity || 1
-                      }
-                      onChange={(e: any) =>
-                        handleTicketChange(
-                          ticket.id,
-                          parseInt(e.target.value, 10)
-                        )
-                      }
-                    />
-                  )}
-                  <Checkbox
-                    color="secondary"
-                    style={
-                      filterTicket.length === 1
-                        ? { display: 'none' }
-                        : { marginTop: 'auto' }
-                    }
-                    onChange={(e) =>
-                      handleTicketChange(ticket.id, e.target.checked ? 1 : 0)
-                    }
-                  />
-                </div>
-              ))}
-            </div>
-            <Button
-              size="large"
-              variant="contained"
-              color="secondary"
-              onClick={() => setOpen(true)}
-            >
-              Buy
-            </Button>
-
-            {tikets && (
-              <OrderForm
-                open={open}
-                setOpen={setOpen}
-                captcha={captcha}
-                setRefreshReCaptcha={setRefreshReCaptcha}
-                selectedTickets={selectedTickets}
-              />
-            )}
-          </div>
-        </Container>
-        <GoogleReCaptcha
-          refreshReCaptcha={refreshReCaptcha}
-          onVerify={verifyRecaptchaCallback}
-        />
-      </GoogleReCaptchaProvider>
-    </section>
-  )
-}
 
 interface FormData {
   fullname: string
@@ -201,13 +43,14 @@ interface IOrderFormProps {
 
 export function OrderForm(props: IOrderFormProps) {
   const { captcha, setRefreshReCaptcha, selectedTickets, open, setOpen } = props
+  const IS_MB = useMediaQuery('(max-width:767px)')
   const {
     handleSubmit,
     control,
     reset,
     formState: { errors },
   } = useForm<FormData>({ defaultValues: { ...defaultValues } })
-  const IS_MB = useMediaQuery('(max-width:767px)')
+
   const onSubmit = async (data: FormData) => {
     if (captcha === '') {
       setRefreshReCaptcha((r) => !r)
@@ -230,7 +73,6 @@ export function OrderForm(props: IOrderFormProps) {
           data?.context?.payment_gateway?.extra_data?.payUrl
       }
       reset()
-      toast.success('ok')
     },
     onError: (error) => {
       const err = error as AxiosError<any>
@@ -260,7 +102,17 @@ export function OrderForm(props: IOrderFormProps) {
               <Controller
                 name="fullname"
                 control={control}
-                rules={{ required: 'Full Name is required' }}
+                rules={{
+                  required: 'Full Name is required',
+                  minLength: {
+                    value: 2,
+                    message: 'Name must be at least 2 digits',
+                  },
+                  maxLength: {
+                    value: 32,
+                    message: 'Name must be less than 32 digits',
+                  },
+                }}
                 render={({ field }) => (
                   <TextFieldCustom
                     {...field}
@@ -287,6 +139,10 @@ export function OrderForm(props: IOrderFormProps) {
                   maxLength: {
                     value: 10,
                     message: 'Phone number must be less than 10 digits',
+                  },
+                  pattern: {
+                    value: /^(0[1-9]{1}[0-9]{8}|84[1-9]{1}[0-9]{8})$/,
+                    message: 'Invalid Vietnamese phone number format',
                   },
                 }}
                 render={({ field }) => (
@@ -364,7 +220,7 @@ export function OrderForm(props: IOrderFormProps) {
           <Box sx={{ mt: 2, mb: 2 }}>
             <LoadingButton
               loading={status === 'pending'}
-              // loadingPosition="end"
+              // loadingPosition='end'
               variant="contained"
               color="secondary"
               fullWidth

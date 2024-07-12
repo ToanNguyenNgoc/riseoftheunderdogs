@@ -1,16 +1,16 @@
-.tiket{
+.tiket {
   display: flex;
   flex-direction: column;
   gap: 48px;
   align-items: center;
 }
-.tiket__list{
+.tiket__list {
   display: flex;
   gap: 24px;
   justify-content: center;
   margin-top: 48px;
 }
-.tiket__item{
+.tiket__item {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -22,7 +22,7 @@
   background-color: var(--white-cl);
   color: black;
 }
-.tiket__item__text{
+.tiket__item__text {
   text-align: left;
   width: 100%;
 }
@@ -30,26 +30,27 @@
   background-color: var(--secondary-cl);
   color: #000;
 } */
-.tiket__dialog__title{
+.tiket__dialog__title {
   color: var(--black-cl);
   font-weight: bold;
   padding: 16px 16px 16px 0;
   font-size: 20px;
 }
-.tiket__dialog__header{
+.tiket__dialog__header {
   display: flex;
   align-items: center;
-  width: 100%;justify-content: space-between;
+  width: 100%;
+  justify-content: space-between;
 }
-.close__dialog{
+.close__dialog {
   cursor: pointer;
 }
-.tiket__item__tilte{
+.tiket__item__tilte {
   font-size: 20px;
   font-weight: bold;
   color: var(--black-cl);
 }
-.tiket__item__price{
+.tiket__item__price {
   font-size: 24px;
   font-weight: bold;
   color: var(--black-cl);
@@ -59,12 +60,12 @@
 } */
 
 @media screen and (max-width: 767.98px) {
-  .tiket__list{
+  .tiket__list {
     flex-direction: column;
     width: 100%;
     gap: 16px;
   }
-  .tiket__item{
+  .tiket__item {
     min-width: 100%;
     width: 100%;
   }

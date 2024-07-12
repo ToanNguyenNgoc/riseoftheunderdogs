@@ -1,6 +1,6 @@
 import React from 'react'
 import classNames from 'classnames'
-import styles from "./style.module.css"
+import styles from './style.module.css'
 
 interface IProps {
   title: string
@@ -17,7 +17,7 @@ export function Title(props: IProps) {
       className={classNames({
         [styles.titleStart]: position === 'left',
         [styles.titleCenter]: position === 'center',
-        [styles.titleEnd]: position === 'right'
+        [styles.titleEnd]: position === 'right',
       })}
     >
       <h2>{title}</h2>

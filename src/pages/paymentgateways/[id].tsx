@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   // console.log(id)
   if (!id) {
     return {
-      notFound: true
+      notFound: true,
     }
   }
 
@@ -48,8 +48,8 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   return {
     props: {
       initialStatus,
-      paymentId: id
-    }
+      paymentId: id,
+    },
   }
 }
 
