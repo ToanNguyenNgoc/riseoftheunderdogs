@@ -1,3 +1,3 @@
 export * from './validate'
-export * from './formatCurency'
+export * from './format'
 export * from './functions'

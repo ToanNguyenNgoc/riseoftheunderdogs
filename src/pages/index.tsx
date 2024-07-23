@@ -9,6 +9,7 @@ import {
   Show,
   Timeline,
 } from '@/components'
+import ScrollToTop from '@/components/UI/scrollToTop'
 
 export default function Home() {
   return (
@@ -23,6 +24,7 @@ export default function Home() {
         <Location />
         <Timeline />
         <Footer />
+        <ScrollToTop />
       </main>
     </>
   )

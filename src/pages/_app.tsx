@@ -5,10 +5,11 @@ import { queryClient } from '@/configs'
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { ToastContainer } from 'react-toastify'
 import { QueryClientProvider } from '@tanstack/react-query'
+import '../i18n'
 const theme = createTheme({
   typography: {
     fontFamily: [
-      'Poppins',
+      'Helvetica Neue',
       '"Segoe UI"',
       'Roboto',
       'Arial',
