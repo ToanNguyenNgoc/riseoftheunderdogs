@@ -1,21 +1,15 @@
 import { Title } from '@/components/UI/title'
-import { QR_KEY } from '@/constants'
 import { ITicket } from '@/interfaces'
-import { tiketApi } from '@/services'
 import { Container } from '@mui/material'
-import { useQuery } from '@tanstack/react-query'
 import style from './style.module.css'
 import Ticket from '@/components/home/tickets/components/ticket'
 
-export function Buy() {
-  const { data } = useQuery({
-    queryKey: [QR_KEY.TIKETS],
-    queryFn: () => tiketApi.getTikets(),
-    staleTime: 5000,
-  })
+interface BuyProps {
+  tickets: ITicket[]
+}
 
-  const tikets = data?.context?.data || []
-  const filterTicket = tikets.filter((item) => item.status == 1)
+export function Buy({ tickets }: BuyProps) {
+  const filterTicket = tickets.filter((item) => item.status == 1)
 
   return (
     <section id="buy" className="left">

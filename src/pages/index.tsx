@@ -10,8 +10,15 @@ import {
   Timeline,
 } from '@/components'
 import ScrollToTop from '@/components/UI/scrollToTop'
+import { GetServerSideProps } from 'next'
+import { tiketApi } from '@/services'
+import { ITicket } from '@/interfaces'
 
-export default function Home() {
+interface HomeProps {
+  tickets: ITicket[]
+}
+
+export default function Home({ tickets }: HomeProps) {
   return (
     <>
       <Seo title="Trang chủ" description="Trang chủ Sell Tickets" url="" />
@@ -20,7 +27,7 @@ export default function Home() {
         <Hero />
         <Show />
         <Artist />
-        <Buy />
+        <Buy tickets={tickets} />
         <Location />
         <Timeline />
         <Footer />
@@ -28,4 +35,24 @@ export default function Home() {
       </main>
     </>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  try {
+    const response = await tiketApi.getTikets()
+    const tickets = response.context.data || []
+
+    return {
+      props: {
+        tickets,
+      },
+    }
+  } catch (error) {
+    console.error('Error fetching tickets:', error)
+    return {
+      props: {
+        tickets: [],
+      },
+    }
+  }
 }
