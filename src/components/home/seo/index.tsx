@@ -9,55 +9,59 @@ interface SeoProps {
 }
 
 export function Seo(props: SeoProps) {
-  const domain = ''
-  const name = 'Sell Tickets'
+  const domain = 'https://riseoftheunderdogs.com'
+  const name = 'Riseoftheunderdogs'
   const { title, description, url, image_url } = props
+
   return (
     <Head>
-      <title>{title ? title + ' ' + `| ${name}` : `${name}`}</title>
-      <meta name="title" content={title + `| ${name}`} />
+      <title>{title ? `${title} | ${name}` : `${name}`}</title>
+      <meta name="title" content={title ? `${title} | ${name}` : name} />
       <meta name="description" content={description} />
-      <meta name="keywords" content="Sell Tickets" />
-      <meta name="author" content="name" />
+      <meta
+        name="keywords"
+        content="Riseoftheunderdogs, sell tickets, sellticket, bán vé, sell tickets, bán vé show diễn riseoftheunderdogs, riseoftheunderdogs, rise of the under dogs, bán vé bray, sell tickets bray"
+      />
+      <meta name="author" content={name} />
       <meta
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
       />
-      <link rel="icon" href="/favicon.ico" />
-      <link
-        rel="apple-touch-icon"
-        sizes="180x180"
-        href="/apple-touch-icon.png"
-      />
-      <link
-        rel="icon"
-        type="image/png"
-        sizes="32x32"
-        href="/favicon-32x32.png"
-      />
-      <link
-        rel="icon"
-        type="image/png"
-        sizes="16x16"
-        href="/favicon-16x16.png"
-      />
-      <link rel="manifest" href="/site.webmanifest" />
-      {/* Open Graph / Facebook */}
+      <link rel="canonical" href={url} />
+      {/* Thẻ Open Graph (OG): Giúp tối ưu hóa khi chia sẻ trên mạng xã hội như Facebook, LinkedIn. */}
       <meta property="og:type" content="website" />
-      <meta property="og:url" content={`${domain}${url}`} />
+      <meta property="og:url" content={url} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta property="og:image" content={image_url ?? ''} />
+      <meta
+        property="og:image"
+        content={image_url ?? `${domain}/default-image.png`}
+      />
       {/* Twitter */}
-      <meta property="twitter:card" content="summary_large_image" />
-      <meta property="twitter:url" content={`${domain}${url}`} />
-      <meta property="twitter:title" content={title} />
-      <meta property="twitter:description" content={description} />
-      <meta property="twitter:image" content={image_url ?? ''}></meta>
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:url" content={url} />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta
+        name="twitter:image"
+        content={image_url ?? `${domain}/default-image.png`}
+      />
       <meta
         name="zalo-platform-site-verification"
         content="GVA5Ex_P5M5Dsi8zkwvrCJsAvYNHz3TuDJG"
       />
+      <meta name="robots" content="index, follow" />
+      <script type="application/ld+json">
+        {`
+          {
+            "@context": "https://schema.org",
+            "@type": "WebPage",
+            "name": "${title ? title : name}",
+            "description": "${description}",
+            "url": "${url}"
+          }
+        `}
+      </script>
     </Head>
   )
 }

@@ -21,7 +21,11 @@ interface HomeProps {
 export default function Home({ tickets }: HomeProps) {
   return (
     <>
-      <Seo title="Trang chủ" description="Trang chủ Sell Tickets" url="" />
+      <Seo
+        title="Trang chủ"
+        description="Website chính thức bán vé cho show diễn Riseoftheunderdogs"
+        url="https://riseoftheunderdogs.com/"
+      />
       <main>
         <Header />
         <Hero />
