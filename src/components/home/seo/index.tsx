@@ -27,25 +27,19 @@ export function Seo(props: SeoProps) {
         name="viewport"
         content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
       />
-      <link rel="canonical" href={url} />
+      <link rel="canonical" href={`${domain}${url}`} />
       {/* Thẻ Open Graph (OG): Giúp tối ưu hóa khi chia sẻ trên mạng xã hội như Facebook, LinkedIn. */}
       <meta property="og:type" content="website" />
-      <meta property="og:url" content={url} />
+      <meta property="og:url" content={`${domain}${url}`} />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
-      <meta
-        property="og:image"
-        content={image_url ?? `${domain}/default-image.png`}
-      />
+      <meta property="og:image" content={image_url ?? ''} />
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:url" content={url} />
+      <meta name="twitter:url" content={`${domain}${url}`} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-      <meta
-        name="twitter:image"
-        content={image_url ?? `${domain}/default-image.png`}
-      />
+      <meta name="twitter:image" content={image_url ?? ''} />
       <meta
         name="zalo-platform-site-verification"
         content="GVA5Ex_P5M5Dsi8zkwvrCJsAvYNHz3TuDJG"

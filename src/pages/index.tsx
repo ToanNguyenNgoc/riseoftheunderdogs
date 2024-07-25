@@ -13,18 +13,21 @@ import ScrollToTop from '@/components/UI/scrollToTop'
 import { GetServerSideProps } from 'next'
 import { tiketApi } from '@/services'
 import { ITicket } from '@/interfaces'
+import { useRouter } from 'next/router'
 
 interface HomeProps {
   tickets: ITicket[]
 }
 
 export default function Home({ tickets }: HomeProps) {
+  const router = useRouter()
   return (
     <>
       <Seo
         title="Trang chủ"
         description="Website chính thức bán vé cho show diễn Riseoftheunderdogs"
-        url="https://riseoftheunderdogs.com/"
+        url={router.pathname}
+        image_url="../../public/img_url_seo.png"
       />
       <main>
         <Header />
