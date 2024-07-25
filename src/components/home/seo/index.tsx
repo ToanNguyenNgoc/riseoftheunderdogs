@@ -31,13 +31,19 @@ export function Seo(props: SeoProps) {
       {/* Thẻ Open Graph (OG): Giúp tối ưu hóa khi chia sẻ trên mạng xã hội như Facebook, LinkedIn. */}
       <meta property="og:type" content="website" />
       <meta property="og:url" content={`${domain}${url}`} />
-      <meta property="og:title" content={title} />
+      <meta
+        property="og:title"
+        content={title ? `${title} | ${name}` : `${name}`}
+      />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={image_url ?? ''} />
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
       <meta name="twitter:url" content={`${domain}${url}`} />
-      <meta name="twitter:title" content={title} />
+      <meta
+        name="twitter:title"
+        content={title ? `${title} | ${name}` : `${name}`}
+      />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image_url ?? ''} />
       <meta

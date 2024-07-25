@@ -4,8 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
     "start": "next start",
+    "build": "next build",
+    "export": "next export",
+    "postbuild": "next-sitemap",
     "lint": "eslint . --ext js,jsx,ts,tsx",
     "format": "prettier --write ."
   },
@@ -24,6 +26,7 @@
     "i18next-http-backend": "^2.5.2",
     "mapbox-gl": "^3.5.2",
     "next": "14.2.4",
+    "next-sitemap": "^4.2.3",
     "query-string": "^9.0.0",
     "react": "^18",
     "react-dom": "^18",
