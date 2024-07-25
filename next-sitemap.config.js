@@ -1,7 +1,6 @@
-import { IConfig } from 'next-sitemap'
-
-const config: IConfig = {
-  siteUrl: 'https://riseoftheunderdogs.com', // Thay bằng URL của trang web của bạn
+/** @type {import('next-sitemap').IConfig} */
+module.exports = {
+  siteUrl: 'https://riseoftheunderdogs.com/', // Thay bằng URL của trang web của bạn
   generateRobotsTxt: true, // Tùy chọn (tự động tạo robots.txt)
   sitemapSize: 5000, // Số lượng URL tối đa trong mỗi file sitemap. Nếu vượt quá số này, sẽ tạo thêm các file sitemap khác.
   changefreq: 'daily', // Tần suất mà các trang của bạn có thể thay đổi.
@@ -15,5 +14,3 @@ const config: IConfig = {
   //   ],
   // },
 }
-
-export default config
