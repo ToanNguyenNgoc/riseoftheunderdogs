@@ -6,8 +6,8 @@
     "dev": "next dev",
     "start": "next start",
     "build": "next build",
+    "prod": "PORT=4000 next start",
     "export": "next export",
-    "postbuild": "next-sitemap",
     "lint": "eslint . --ext js,jsx,ts,tsx",
     "format": "prettier --write ."
   },
